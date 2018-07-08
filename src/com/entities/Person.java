@@ -9,10 +9,16 @@ public class Person {
     private String pain;
     private String surgery;
 
-    public Person(String firstName, String lastName) {
+    public Person(String firstName, String lastName, String timeLine, String medicines, String pain, String surgery) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.timeLine = timeLine;
+        this.medicines = medicines;
+        this.pain = pain;
+        this.surgery = surgery;
     }
+
+    public Person(){}
 
     public String getTimeLine() {
         return timeLine;
@@ -66,7 +72,21 @@ public class Person {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", timeLine='" + timeLine + '\'' +
+                ", medicines='" + medicines + '\'' +
+                ", pain='" + pain + '\'' +
+                ", surgery='" + surgery + '\'' +
+                '}';
     }
 }
