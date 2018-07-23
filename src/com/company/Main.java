@@ -2,12 +2,21 @@ package com.company;
 
 import com.daoImplementation.PersonDaoImpl;
 import com.entities.Person;
+import com.gui.DatabaseFrame;
+import com.xmlFile.DatabaseInformation;
+import com.xmlFile.WriteXMLFile;
 
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        DatabaseFrame.showDatabaseFrame(args);
+
+        WriteXMLFile write = new WriteXMLFile();
+        DatabaseInformation databaseInformation = new DatabaseInformation();
+        write.parseXml(databaseInformation);
 
         PersonDaoImpl pdi = new PersonDaoImpl();
        // pdi.createPersonTable();
