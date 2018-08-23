@@ -14,21 +14,16 @@ import javafx.scene.control.Button;
 
 import static javafx.application.Application.launch;
 
-public class DatabaseFrame extends Application {
-
-    private Button button1;
+public class DatabaseFrame {
 
     public DatabaseFrame() {
 
     }
 
-    public static void showDatabaseFrame(String[] args){
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage databaseStage) throws Exception
+    public static void start() throws Exception
     {
+        Stage databaseStage = new Stage();
         databaseStage.setTitle("Database Information");
         WriteXMLFile write = new WriteXMLFile();
         DatabaseInformation databaseInformation = new DatabaseInformation();
@@ -39,7 +34,7 @@ public class DatabaseFrame extends Application {
         TextField textField3 = new TextField(databaseInformation.getUrl());
         TextField textField4 = new TextField(databaseInformation.getPort());
         TextField textField5 = new TextField(databaseInformation.getDatabase());
-        button1 = new Button("Ok");
+        Button button1 = new Button("Ok");
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20 , 20, 20));
@@ -55,6 +50,8 @@ public class DatabaseFrame extends Application {
             databaseInformation.setDatabase(textField5.getText());
             System.out.println("Button OK was pressed");
             write.createXml(databaseInformation);
+            databaseStage.close();
+            //AlertFrame.DisplayAlert("Database salvo");
         });
 
         databaseStage.setScene(scene);
