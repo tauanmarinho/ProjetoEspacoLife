@@ -95,6 +95,9 @@ public class EspacoLifeFrame implements Initializable {
     public TextField movimentPain;
     public TextField goal;
     public TextField obs;
+    public TextField accidentPain;
+    public CheckBox accidentNoButton;
+    public CheckBox accidentYesButton;
     private TitledPane userTitledPane;
     private PersonDaoImpl pdi;
     private int sizeUserNow;
@@ -106,6 +109,7 @@ public class EspacoLifeFrame implements Initializable {
             "Outubro", "Novembro", "Dezembro"};
 
 
+    //Aba Pacientes
     public void createUserList(){
         pdi = new PersonDaoImpl();
         for (Person eachPerson : pdi.selectAll())
@@ -287,8 +291,9 @@ public class EspacoLifeFrame implements Initializable {
         person.setAddress(address.getText());
         person.setAddressNumber(addressNumber.getText());
         person.setProfession(profession.getText());
-        person.setPilatesIndication(pilatesIndication.getText());
         person.setDateOfBirth(dateOfBirth.getText());
+        person.setPilatesIndication(pilatesIndication.getText());
+
         person.setTimeLine(obs.getText());
 
         if(surgeryYesButton.isSelected())
@@ -325,7 +330,7 @@ public class EspacoLifeFrame implements Initializable {
         }
         else
         {
-            person.setMedicines("Não");
+            person.setDisease("Não");
         }
 
         if(activitiesYesButton.isSelected())
@@ -344,6 +349,15 @@ public class EspacoLifeFrame implements Initializable {
         else
         {
             person.setSmoke("Não");
+        }
+
+        if(accidentNoButton.isSelected())
+        {
+            person.setAccident("Sim. " + accidentPain.getText());
+        }
+        else
+        {
+            person.setAccident("Não");
         }
 
         person.setGoal(goal.getText());
@@ -506,6 +520,7 @@ public class EspacoLifeFrame implements Initializable {
         movimentPain.setEditable(false);
         resetYesAndNo(medicineYesButton, medicineNoButton, eachMedicine);
         resetYesAndNo(smokeYesButton, smokeNoButton, eachSmokeTime);
+        resetYesAndNo(accidentYesButton, accidentNoButton, accidentPain);
     }
 
     public void resetYesAndNo(CheckBox yes, CheckBox no, TextField text){
@@ -584,6 +599,18 @@ public class EspacoLifeFrame implements Initializable {
     public void smokeYes(ActionEvent actionEvent) {
         if(smokeYesButton.isSelected()){
             buttonYes(smokeNoButton, eachSmokeTime);
+        }
+    }
+
+    public void accidentNo(ActionEvent actionEvent) {
+        if(accidentNoButton.isSelected()){
+            buttonNo(accidentYesButton, accidentPain);
+        }
+    }
+
+    public void accidentYes(ActionEvent actionEvent) {
+        if(smokeYesButton.isSelected()){
+            buttonYes(accidentNoButton, accidentPain);
         }
     }
 
@@ -790,4 +817,5 @@ public class EspacoLifeFrame implements Initializable {
         }
         return min;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.company;
 
+import com.dao.PersonDao;
 import com.dao.ScheduleDao;
 import com.daoImplementation.PersonDaoImpl;
 import com.daoImplementation.ScheduleDaoImpl;
@@ -20,7 +21,6 @@ public class Main {
         //DatabaseFrame.showDatabaseFrame(args);
         //EspacoLifeFrame.showEspacoLife(args);
         InitGui.main(args);
-
         //WriteXMLFile write = new WriteXMLFile();
         //DatabaseInformation databaseInformation = new DatabaseInformation();
         //write.parseXml(databaseInformation);

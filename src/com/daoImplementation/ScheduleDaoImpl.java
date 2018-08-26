@@ -246,7 +246,8 @@ public class ScheduleDaoImpl implements ScheduleDao {
             preparedStatement.setString(5, schedule.getThursday());
             preparedStatement.setString(6, schedule.getFriday());
             preparedStatement.setString(7, schedule.getSaturday());
-            preparedStatement.setInt(8, id);
+            preparedStatement.setString(8, schedule.getName());
+            preparedStatement.setInt(9, id);
             preparedStatement.executeUpdate();
 
             System.out.println("UPDATE schedule SET \" +\n" +

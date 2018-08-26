@@ -35,6 +35,31 @@ public class Person {
         this.surgery = surgery;
     }
 
+    public Person(String firstName, String lastName, String telephony, String cellphone, String address, String addressNumber,
+                  String profession, String dateOfBirth, String pilatesIndication, String activities, String painActivity,
+                  String medicines, String smoke, String disease, String surgery, String accident, String pain, String goal,
+                  String timeLine) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.telephony = telephony;
+        this.cellphone = cellphone;
+        this.address = address;
+        this.addressNumber = addressNumber;
+        this.profession = profession;
+        this.dateOfBirth = dateOfBirth;
+        this.pilatesIndication = pilatesIndication;
+        this.activities = activities;
+        this.painActivity = painActivity;
+        this.medicines = medicines;
+        this.smoke = smoke;
+        this.disease = disease;
+        this.surgery = surgery;
+        this.accident = accident;
+        this.pain = pain;
+        this.goal = goal;
+        this.timeLine = timeLine;
+    }
+
     public Person(){}
 
     public String getTimeLine() {
