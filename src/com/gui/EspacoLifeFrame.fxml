@@ -182,7 +182,7 @@
                         <Label layoutX="452.0" layoutY="444.0" text="Observações" />
                         <TextField fx:id="obs" alignment="TOP_LEFT" layoutX="453.0" layoutY="462.0" prefHeight="115.0" prefWidth="398.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7dadd" height="255.0" layoutX="877.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="339.0" />
-                        <TextField fx:id="startMonday" layoutX="1024.0" layoutY="78.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="startMonday" layoutX="1054.0" layoutY="78.0" prefHeight="27.0" prefWidth="59.0" />
                         <Label layoutX="888.0" layoutY="46.0" prefHeight="17.0" prefWidth="73.0" text="Horários">
                            <font>
                               <Font size="15.0" />
@@ -190,45 +190,20 @@
                         </Label>
                         <CheckBox fx:id="mondayClickedButton" layoutX="888.0" layoutY="83.0" mnemonicParsing="false" onAction="#mondayClicked" text="Segunda-feira" />
                         <TextField fx:id="endMonday" layoutX="1133.0" layoutY="78.0" prefHeight="27.0" prefWidth="59.0" />
-                        <Label layoutX="1096.0" layoutY="81.0" text="até">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="startTuesday" layoutX="1024.0" layoutY="106.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="startTuesday" layoutX="1054.0" layoutY="106.0" prefHeight="27.0" prefWidth="59.0" />
                         <CheckBox fx:id="tuesdayClickedButton" layoutX="888.0" layoutY="111.0" mnemonicParsing="false" onAction="#tuesdayClicked" text="Terça-feira" />
                         <TextField fx:id="endTuesday" layoutX="1133.0" layoutY="106.0" prefHeight="27.0" prefWidth="59.0" />
-                        <Label layoutX="1096.0" layoutY="109.0" text="até">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="startWednesday" layoutX="1024.0" layoutY="136.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="startWednesday" layoutX="1054.0" layoutY="134.0" prefHeight="27.0" prefWidth="59.0" />
                         <CheckBox fx:id="wednesdayClickedButton" layoutX="888.0" layoutY="141.0" mnemonicParsing="false" onAction="#wednesdayClicked" text="Quarta-feira" />
-                        <TextField fx:id="endWednesday" layoutX="1133.0" layoutY="136.0" prefHeight="27.0" prefWidth="59.0" />
-                        <Label layoutX="1096.0" layoutY="139.0" text="até">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="startThursday" layoutX="1024.0" layoutY="164.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="endWednesday" layoutX="1133.0" layoutY="134.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="startThursday" layoutX="1054.0" layoutY="162.0" prefHeight="27.0" prefWidth="59.0" />
                         <CheckBox fx:id="thursdayClickedButton" layoutX="888.0" layoutY="169.0" mnemonicParsing="false" onAction="#thursdayClicked" text="Quinta-feira" />
-                        <TextField fx:id="endThursday" layoutX="1133.0" layoutY="164.0" prefHeight="27.0" prefWidth="59.0" />
-                        <Label layoutX="1096.0" layoutY="167.0" text="até">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="startFriday" layoutX="1024.0" layoutY="192.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="endThursday" layoutX="1133.0" layoutY="162.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField fx:id="startFriday" layoutX="1054.0" layoutY="190.0" prefHeight="27.0" prefWidth="59.0" />
                         <CheckBox fx:id="fridayClickedButton" layoutX="888.0" layoutY="197.0" mnemonicParsing="false" onAction="#fridayClicked" text="Sexta-feira" />
-                        <TextField fx:id="endFriday" layoutX="1133.0" layoutY="192.0" prefHeight="27.0" prefWidth="59.0" />
-                        <Label layoutX="1096.0" layoutY="195.0" text="até">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
+                        <TextField fx:id="endFriday" layoutX="1133.0" layoutY="190.0" prefHeight="27.0" prefWidth="59.0" />
                         <Button layoutX="1128.0" layoutY="232.0" mnemonicParsing="false" onAction="#validateSchedule" text="Verificar" />
-                        <Label layoutX="1033.0" layoutY="56.0" prefHeight="19.0" prefWidth="41.0" text="Início">
+                        <Label layoutX="1065.0" layoutY="56.0" prefHeight="19.0" prefWidth="41.0" text="Início">
                            <font>
                               <Font size="15.0" />
                            </font>

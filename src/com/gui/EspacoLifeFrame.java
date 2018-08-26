@@ -222,7 +222,9 @@ public class EspacoLifeFrame implements Initializable {
         for (int time = TIME_START_MORNING; time < TIME_FINISH_MORNING; time++)
         {
             timeListView.getItems().add("" + time + ":00");
+            timeListView.getItems().add("" + time + ":15");
             timeListView.getItems().add("" + time + ":30");
+            timeListView.getItems().add("" + time + ":45");
         }
 
         timeListView.getItems().add("12:00 ----------------------------------------------- Almoço -----------------------------------------------");
@@ -230,7 +232,9 @@ public class EspacoLifeFrame implements Initializable {
         for (int time = TIME_START_AFTERNOON; time < TIME_FINISH_AFTERNOON; time++)
         {
             timeListView.getItems().add("" + time + ":00");
+            timeListView.getItems().add("" + time + ":15");
             timeListView.getItems().add("" + time + ":30");
+            timeListView.getItems().add("" + time + ":45");
         }
 
 
