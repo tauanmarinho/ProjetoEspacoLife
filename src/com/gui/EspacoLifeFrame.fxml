@@ -99,7 +99,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab fx:id="userTab" text="Pacientes">
+          <Tab fx:id="userTab" onSelectionChanged="#userTabShow" text="Pacientes">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="403.0">
                      <children>
@@ -111,52 +111,162 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField layoutX="14.0" layoutY="28.0" />
+                        <TextField fx:id="name" layoutX="14.0" layoutY="28.0" />
                         <Label layoutX="14.0" layoutY="12.0" text="Nome" />
                         <Button layoutX="436.0" layoutY="716.0" mnemonicParsing="false" text="Salvar" />
-                        <TextField layoutX="14.0" layoutY="81.0" />
-                        <Label layoutX="14.0" layoutY="65.0" text="Sobrenome" />
-                        <TextField layoutX="14.0" layoutY="184.0" prefHeight="27.0" prefWidth="409.0" />
-                        <Label layoutX="15.0" layoutY="166.0" text="Endereço" />
-                        <TextField layoutX="14.0" layoutY="238.0" />
-                        <Label layoutX="14.0" layoutY="221.0" text="Profissão" />
-                        <TextField layoutX="14.0" layoutY="298.0" />
-                        <Label layoutX="14.0" layoutY="275.0" text="Quem indicou o Pilates" />
-                        <TextField layoutX="345.0" layoutY="483.0" text="Outros. Quais?" />
-                        <Label layoutX="196.0" layoutY="360.0" text="Frequencia" />
-                        <Label layoutX="14.0" layoutY="338.0" text="Pratica alguma atividade fisica?" />
-                        <TextField layoutX="275.0" layoutY="355.0" prefHeight="27.0" prefWidth="46.0" />
-                        <CheckBox layoutX="20.0" layoutY="360.0" mnemonicParsing="false" text="Sim" />
-                        <CheckBox layoutX="81.0" layoutY="360.0" mnemonicParsing="false" text="Não" />
-                        <Label layoutX="14.0" layoutY="398.0" prefHeight="17.0" prefWidth="414.0" text="Tem algum destes sintomas durante a prtica de atividades físicas" />
-                        <TextField layoutX="275.0" layoutY="427.0" prefHeight="27.0" prefWidth="46.0" />
-                        <CheckBox layoutX="28.0" layoutY="431.0" mnemonicParsing="false" text="Dor articular" />
-                        <CheckBox layoutX="27.0" layoutY="465.0" mnemonicParsing="false" text="Dor muscular" />
-                        <Label layoutX="196.0" layoutY="432.0" text="Frequência" />
-                        <Label layoutX="16.0" layoutY="118.0" text="Telefone" />
-                        <TextField layoutX="14.0" layoutY="135.0" />
-                        <Label layoutX="217.0" layoutY="120.0" text="Celular" />
-                        <TextField layoutX="215.0" layoutY="135.0" />
-                        <Label layoutX="432.0" layoutY="166.0" text="Número" />
-                        <TextField layoutX="431.0" layoutY="184.0" prefHeight="27.0" prefWidth="49.0" />
-                        <CheckBox layoutX="222.0" layoutY="465.0" mnemonicParsing="false" text="Falta de ar" />
-                        <CheckBox layoutX="26.0" layoutY="496.0" mnemonicParsing="false" text="Náuseas" />
-                        <CheckBox layoutX="231.0" layoutY="505.0" mnemonicParsing="false" text="Tontura" />
-                        <Label layoutX="202.0" layoutY="560.0" text="Qual" />
-                        <Label layoutX="20.0" layoutY="538.0" text="Toma medicamentos?" />
-                        <TextField layoutX="246.0" layoutY="555.0" prefHeight="27.0" prefWidth="46.0" />
-                        <CheckBox layoutX="26.0" layoutY="560.0" mnemonicParsing="false" text="Sim" />
-                        <CheckBox layoutX="87.0" layoutY="560.0" mnemonicParsing="false" text="Não" />
-                        <Label layoutX="197.0" layoutY="607.0" text="Quanto tempo" />
-                        <Label layoutX="27.0" layoutY="589.0" text="Fumante?" />
-                        <TextField layoutX="303.0" layoutY="612.0" prefHeight="27.0" prefWidth="46.0" />
-                        <CheckBox layoutX="26.0" layoutY="609.0" mnemonicParsing="false" text="Sim" />
-                        <CheckBox layoutX="94.0" layoutY="610.0" mnemonicParsing="false" text="Não" />
+                        <TextField fx:id="lastName" layoutX="192.0" layoutY="28.0" prefHeight="27.0" prefWidth="657.0" />
+                        <Label layoutX="191.0" layoutY="12.0" text="Sobrenome" />
+                        <TextField fx:id="address" layoutX="379.0" layoutY="78.0" prefHeight="27.0" prefWidth="407.0" />
+                        <Label layoutX="380.0" layoutY="61.0" text="Endereço" />
+                        <TextField fx:id="profession" layoutX="14.0" layoutY="136.0" />
+                        <Label layoutX="16.0" layoutY="119.0" text="Profissão" />
+                        <TextField fx:id="pilatesIndication" layoutX="192.0" layoutY="136.0" prefHeight="27.0" prefWidth="220.0" />
+                        <Label layoutX="197.0" layoutY="119.0" text="Quem indicou o Pilates" />
+                        <Label layoutX="147.0" layoutY="197.0" text="Frequência" />
+                        <Label layoutX="15.0" layoutY="175.0" text="Pratica alguma atividade fisica?" />
+                        <TextField fx:id="frequencyActivities" layoutX="226.0" layoutY="192.0" prefHeight="27.0" prefWidth="185.0" />
+                        <CheckBox fx:id="activitiesYesButton" accessibleRole="CHECK_MENU_ITEM" layoutX="16.0" layoutY="196.0" mnemonicParsing="false" onAction="#activitiesYes" text="Sim" />
+                        <CheckBox fx:id="activitiesNoButton" accessibleRole="CHECK_MENU_ITEM" layoutX="77.0" layoutY="196.0" mnemonicParsing="false" onAction="#activitiesNo" text="Não" />
+                        <Label layoutX="15.0" layoutY="227.0" prefHeight="17.0" prefWidth="414.0" text="Algum dos sintomas abaixo durante a prática de atividades físicas" />
+                        <TextField layoutX="93.0" layoutY="303.0" prefHeight="27.0" prefWidth="46.0" />
+                        <CheckBox layoutX="17.0" layoutY="249.0" mnemonicParsing="false" text="Dor articular" />
+                        <CheckBox layoutX="137.0" layoutY="249.0" mnemonicParsing="false" text="Dor muscular" />
+                        <Label layoutX="14.0" layoutY="308.0" text="Frequência" />
+                        <Label layoutX="17.0" layoutY="61.0" text="Telefone" />
+                        <TextField fx:id="telephony" layoutX="14.0" layoutY="78.0" />
+                        <Label layoutX="191.0" layoutY="61.0" text="Celular" />
+                        <TextField fx:id="cellphone" layoutX="192.0" layoutY="78.0" prefHeight="27.0" prefWidth="178.0" />
+                        <Label layoutX="797.0" layoutY="61.0" text="Número" />
+                        <TextField fx:id="addressNumber" layoutX="797.0" layoutY="78.0" prefHeight="27.0" prefWidth="54.0" />
+                        <CheckBox layoutX="137.0" layoutY="277.0" mnemonicParsing="false" text="Falta de ar" />
+                        <CheckBox layoutX="17.0" layoutY="277.0" mnemonicParsing="false" text="Náuseas" />
+                        <CheckBox layoutX="262.0" layoutY="249.0" mnemonicParsing="false" text="Tontura" />
+                        <Label layoutX="583.0" layoutY="197.0" text="Quais" />
+                        <Label layoutX="451.0" layoutY="175.0" text="Toma medicamentos?" />
+                        <TextField fx:id="eachMedicine" layoutX="626.0" layoutY="192.0" prefHeight="27.0" prefWidth="224.0" />
+                        <CheckBox fx:id="medicineNoButton" layoutX="512.0" layoutY="196.0" mnemonicParsing="false" onAction="#medicineNo" text="Não" />
+                        <Label layoutX="583.0" layoutY="250.0" text="Quanto tempo" />
+                        <Label layoutX="451.0" layoutY="227.0" text="Fumante?" />
+                        <TextField fx:id="eachSmokeTime" layoutX="682.0" layoutY="245.0" prefHeight="27.0" prefWidth="169.0" />
+                        <CheckBox fx:id="smokeYesButton" layoutX="451.0" layoutY="249.0" mnemonicParsing="false" onAction="#smokeYes" text="Sim" />
+                        <CheckBox fx:id="smokeNoButton" layoutX="512.0" layoutY="249.0" mnemonicParsing="false" onAction="#smokeNo" text="Não" />
                         <Label layoutX="217.0" layoutY="684.0" text="Qual" />
                         <Label layoutX="35.0" layoutY="662.0" text="Apresenta alguma doença" />
                         <TextField layoutX="275.0" layoutY="679.0" prefHeight="27.0" prefWidth="46.0" />
                         <CheckBox layoutX="41.0" layoutY="684.0" mnemonicParsing="false" text="Sim" />
                         <CheckBox layoutX="102.0" layoutY="684.0" mnemonicParsing="false" text="Não" />
+                        <Button layoutX="1146.0" layoutY="584.0" mnemonicParsing="false" onAction="#saveDataPerson" text="Salvar" />
+                        <Label layoutX="451.0" layoutY="119.0" text="Data de nascimento" />
+                        <TextField fx:id="dateOfBirth" layoutX="451.0" layoutY="136.0" prefHeight="27.0" prefWidth="149.0" />
+                        <CheckBox fx:id="medicineYesButton" layoutX="451.0" layoutY="197.0" mnemonicParsing="false" onAction="#medicineYes" text="Sim" />
+                        <CheckBox layoutX="262.0" layoutY="277.0" mnemonicParsing="false" text="Dor de cabeça" />
+                        <Label layoutX="147.0" layoutY="416.0" text="Quais" />
+                        <Label layoutX="15.0" layoutY="394.0" text="Submetido alguma cirugia?" />
+                        <TextField fx:id="eachSurgery" layoutX="190.0" layoutY="411.0" prefHeight="27.0" prefWidth="222.0" />
+                        <CheckBox fx:id="surgeryNoButton" layoutX="76.0" layoutY="415.0" mnemonicParsing="false" onAction="#surgeryNo" text="Não" />
+                        <CheckBox fx:id="surgeryYesButton" layoutX="15.0" layoutY="416.0" mnemonicParsing="false" onAction="#surgeryYes" text="Sim" />
+                        <Label layoutX="147.0" layoutY="363.0" text="Quais" />
+                        <Label layoutX="15.0" layoutY="341.0" text="Apresenta alguma doença?" />
+                        <TextField fx:id="eachDisease" layoutX="190.0" layoutY="358.0" prefHeight="27.0" prefWidth="221.0" />
+                        <CheckBox fx:id="diseaseNoButton" layoutX="76.0" layoutY="362.0" mnemonicParsing="false" onAction="#diseaseNo" text="Não" />
+                        <CheckBox fx:id="diseaseYesButton" layoutX="15.0" layoutY="363.0" mnemonicParsing="false" onAction="#diseaseYes" text="Sim" />
+                        <Label layoutX="147.0" layoutY="466.0" text="Quais" />
+                        <Label layoutX="15.0" layoutY="444.0" text="Apresenta algum tipo de dor?" />
+                        <TextField fx:id="eachPain" layoutX="190.0" layoutY="461.0" prefHeight="27.0" prefWidth="221.0" />
+                        <CheckBox fx:id="painNoButton" layoutX="76.0" layoutY="465.0" mnemonicParsing="false" onAction="#painNo" text="Não" />
+                        <CheckBox fx:id="painYesButton" layoutX="15.0" layoutY="466.0" mnemonicParsing="false" onAction="#painYes" text="Sim" />
+                        <Label layoutX="14.0" layoutY="496.0" text="Qual movimento ou posição?" />
+                        <TextField fx:id="movimentPain" alignment="TOP_LEFT" layoutX="15.0" layoutY="520.0" prefHeight="58.0" prefWidth="395.0" />
+                        <Label layoutX="451.0" layoutY="292.0" text="Objetivos pricipais na pilates" />
+                        <TextField fx:id="goal" alignment="TOP_LEFT" layoutX="452.0" layoutY="310.0" prefHeight="122.0" prefWidth="398.0" />
+                        <Label layoutX="452.0" layoutY="444.0" text="Observações" />
+                        <TextField fx:id="obs" alignment="TOP_LEFT" layoutX="453.0" layoutY="462.0" prefHeight="115.0" prefWidth="398.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7dadd" height="255.0" layoutX="877.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="339.0" />
+                        <TextField fx:id="startMonday" layoutX="1024.0" layoutY="78.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="888.0" layoutY="46.0" prefHeight="17.0" prefWidth="73.0" text="Horários">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <CheckBox fx:id="mondayClickedButton" layoutX="888.0" layoutY="83.0" mnemonicParsing="false" onAction="#mondayClicked" text="Segunda-feira" />
+                        <TextField fx:id="endMonday" layoutX="1133.0" layoutY="78.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="1096.0" layoutY="81.0" text="até">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="startTuesday" layoutX="1024.0" layoutY="106.0" prefHeight="27.0" prefWidth="59.0" />
+                        <CheckBox fx:id="tuesdayClickedButton" layoutX="888.0" layoutY="111.0" mnemonicParsing="false" onAction="#tuesdayClicked" text="Terça-feira" />
+                        <TextField fx:id="endTuesday" layoutX="1133.0" layoutY="106.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="1096.0" layoutY="109.0" text="até">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="startWednesday" layoutX="1024.0" layoutY="136.0" prefHeight="27.0" prefWidth="59.0" />
+                        <CheckBox fx:id="wednesdayClickedButton" layoutX="888.0" layoutY="141.0" mnemonicParsing="false" onAction="#wednesdayClicked" text="Quarta-feira" />
+                        <TextField fx:id="endWednesday" layoutX="1133.0" layoutY="136.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="1096.0" layoutY="139.0" text="até">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="startThursday" layoutX="1024.0" layoutY="164.0" prefHeight="27.0" prefWidth="59.0" />
+                        <CheckBox fx:id="thursdayClickedButton" layoutX="888.0" layoutY="169.0" mnemonicParsing="false" onAction="#thursdayClicked" text="Quinta-feira" />
+                        <TextField fx:id="endThursday" layoutX="1133.0" layoutY="164.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="1096.0" layoutY="167.0" text="até">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="startFriday" layoutX="1024.0" layoutY="192.0" prefHeight="27.0" prefWidth="59.0" />
+                        <CheckBox fx:id="fridayClickedButton" layoutX="888.0" layoutY="197.0" mnemonicParsing="false" onAction="#fridayClicked" text="Sexta-feira" />
+                        <TextField fx:id="endFriday" layoutX="1133.0" layoutY="192.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="1096.0" layoutY="195.0" text="até">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="1128.0" layoutY="232.0" mnemonicParsing="false" onAction="#validateSchedule" text="Verificar" />
+                        <Label layoutX="1033.0" layoutY="56.0" prefHeight="19.0" prefWidth="41.0" text="Início">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="1133.0" layoutY="56.0" prefHeight="19.0" prefWidth="60.0" text="Término">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="888.0" layoutY="235.0" prefHeight="17.0" prefWidth="73.0" text="Valor:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7dadd" height="133.0" layoutX="877.0" layoutY="299.0" stroke="BLACK" strokeType="INSIDE" width="339.0" />
+                        <Label layoutX="888.0" layoutY="307.0" prefHeight="19.0" prefWidth="91.0" text="Pagamento">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <CheckBox layoutX="888.0" layoutY="332.0" mnemonicParsing="false" text="Dinheiro" />
+                        <CheckBox layoutX="995.0" layoutY="332.0" mnemonicParsing="false" text="Transf. bancária" />
+                        <CheckBox layoutX="888.0" layoutY="362.0" mnemonicParsing="false" text="Cheque" />
+                        <Label layoutX="889.0" layoutY="393.0" prefHeight="19.0" prefWidth="142.0" text="Dias de pagamento">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="1038.0" layoutY="389.0" prefHeight="27.0" prefWidth="59.0" />
+                        <TextField layoutX="1147.0" layoutY="389.0" prefHeight="27.0" prefWidth="59.0" />
+                        <Label layoutX="1110.0" layoutY="392.0" text="até">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="148.0" layoutY="308.0" text="Quais" />
+                        <TextField layoutX="191.0" layoutY="303.0" prefHeight="27.0" prefWidth="220.0" />
+                        <Button layoutX="1050.0" layoutY="584.0" mnemonicParsing="false" onAction="#clearAll" text="Limpar tudo" />
                      </children></AnchorPane>
             </content>
           </Tab>

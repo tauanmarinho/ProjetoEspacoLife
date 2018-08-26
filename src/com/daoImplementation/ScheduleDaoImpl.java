@@ -1,26 +1,26 @@
 package com.daoImplementation;
 
-import com.dao.PersonDao;
-import com.entities.Person;
+import com.dao.ScheduleDao;
+import com.entities.Schedule;
 import com.util.ConnectionConfiguration;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonDaoImpl implements PersonDao {
+public class ScheduleDaoImpl implements ScheduleDao {
 
     @Override
-    public void createPersonTable() {
+    public void createScheduleTable() {
         Connection connection = null;
         Statement statement = null;
 
         try{
-            connection = ConnectionConfiguration.getConnection();
+            connection = ConnectionConfiguration.getConnectionSchedule();
             statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS person (id int primary key unique auto_increment," +
-                    "first_name varchar(55), last_name varchar(55), telephony varchar(55), timeLine varchar(200), surgery varchar(55), " +
-                    "medicines varchar(55), pain varchar(55))");
+            statement.execute("CREATE TABLE IF NOT EXISTS schedule (id int primary key unique auto_increment," +
+                    "sunday varchar(110), monday varchar(110), tuesday varchar(110), wednesday varchar(110), thursday varchar(110), " +
+                    "friday varchar(110), saturday varchar(110), name varchar(110))");
         } catch (Exception e){
             e.printStackTrace();
         } finally {
@@ -44,26 +44,27 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public void insert(Person person) {
+    public void insert(Schedule schedule) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = ConnectionConfiguration.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO person (first_name, last_name, telephony, timeLine, " +
-                    "surgery, medicines, pain )" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setString(1, person.getFirstName());
-            preparedStatement.setString(2, person.getLastName());
-            preparedStatement.setString(3, person.getTelephony());
-            preparedStatement.setString(4, person.getMedicines());
-            preparedStatement.setString(5, person.getPain());
-            preparedStatement.setString(6, person.getSurgery());
-            preparedStatement.setString(7, person.getTimeLine());
+            connection = ConnectionConfiguration.getConnectionSchedule();
+            preparedStatement = connection.prepareStatement("INSERT INTO schedule (sunday, monday, tuesday, wednesday, " +
+                    "thursday, friday, saturday, name )" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, schedule.getSunday());
+            preparedStatement.setString(2, schedule.getMonday());
+            preparedStatement.setString(3, schedule.getTuesday());
+            preparedStatement.setString(4, schedule.getWednesday());
+            preparedStatement.setString(5, schedule.getThursday());
+            preparedStatement.setString(6, schedule.getFriday());
+            preparedStatement.setString(7, schedule.getSaturday());
+            preparedStatement.setString(8, schedule.getName());
             preparedStatement.executeUpdate();
-            System.out.println("INSERT INTO person (INSERT INTO person (first_name, last_name, telephony, timeLine, " +
-                    "surgery, medicines, pain )" +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)");
+            System.out.println("INSERT INTO schedule (sunday, monday, tuesday, wednesday, " +
+                    "thursday, friday, saturday, name )" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -87,29 +88,30 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public Person selectPersonById(int id) {
-        Person person = new Person();
+    public Schedule selectScheduleById(int id) {
+        Schedule schedule = new Schedule();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
-            connection = ConnectionConfiguration.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM person WHERE ID = ?");
+            connection = ConnectionConfiguration.getConnectionSchedule();
+            preparedStatement = connection.prepareStatement("SELECT * FROM schedule WHERE ID = ?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next()){
-                person.setId(resultSet.getInt("id"));
-                person.setFirstName(resultSet.getString("first_name"));
-                person.setLastName(resultSet.getString("last_name"));
-                person.setTelephony(resultSet.getString("telephony"));
-                person.setMedicines(resultSet.getString("medicines"));
-                person.setPain(resultSet.getString("pain"));
-                person.setSurgery(resultSet.getString("surgery"));
-                person.setTimeLine(resultSet.getString("timeLine"));;
+                schedule.setId(resultSet.getInt("id"));
+                schedule.setSunday(resultSet.getString("sunday"));
+                schedule.setMonday(resultSet.getString("monday"));
+                schedule.setTuesday(resultSet.getString("tuesday"));
+                schedule.setWednesday(resultSet.getString("wednesday"));
+                schedule.setThursday(resultSet.getString("thursday"));
+                schedule.setFriday(resultSet.getString("friday"));
+                schedule.setSaturday(resultSet.getString("saturday"));;
+                schedule.setName(resultSet.getString("name"));;
             }
-
+            System.out.println("SELECT * FROM schedule WHERE ID = ?");
         } catch (Exception e){
             e.printStackTrace();
         } finally {
@@ -135,34 +137,36 @@ public class PersonDaoImpl implements PersonDao {
                 }
             }
         }
-        return person;
+        return schedule;
     }
 
     @Override
-    public List<Person> selectAll() {
-        List<Person> persons = new ArrayList<Person>();
+    public List<Schedule> selectAll() {
+        List<Schedule> schedules = new ArrayList<Schedule>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
 
         try {
-            connection = ConnectionConfiguration.getConnection();
+            connection = ConnectionConfiguration.getConnectionSchedule();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM person");
+            resultSet = statement.executeQuery("SELECT * FROM schedule");
 
             while(resultSet.next()) {
-                Person person = new Person();
-                person.setId(resultSet.getInt("id"));
-                person.setFirstName(resultSet.getString("first_name"));
-                person.setLastName(resultSet.getString("last_name"));
-                person.setTelephony(resultSet.getString("telephony"));
-                person.setMedicines(resultSet.getString("medicines"));
-                person.setPain(resultSet.getString("pain"));
-                person.setSurgery(resultSet.getString("surgery"));
-                person.setTimeLine(resultSet.getString("timeLine"));
+                Schedule schedule = new Schedule();
+                schedule.setId(resultSet.getInt("id"));
+                schedule.setSunday(resultSet.getString("sunday"));
+                schedule.setMonday(resultSet.getString("monday"));
+                schedule.setTuesday(resultSet.getString("tuesday"));
+                schedule.setWednesday(resultSet.getString("wednesday"));
+                schedule.setThursday(resultSet.getString("thursday"));
+                schedule.setFriday(resultSet.getString("friday"));
+                schedule.setSaturday(resultSet.getString("saturday"));
+                schedule.setSaturday(resultSet.getString("name"));
 
-                persons.add(person);
+                schedules.add(schedule);
             }
+            System.out.println("SELECT * FROM schedule");
         } catch (Exception e){
             e.printStackTrace();
         } finally {
@@ -189,7 +193,7 @@ public class PersonDaoImpl implements PersonDao {
             }
 
         }
-        return persons;
+        return schedules;
     }
 
     @Override
@@ -198,12 +202,12 @@ public class PersonDaoImpl implements PersonDao {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = ConnectionConfiguration.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM person WHERE id = ?");
+            connection = ConnectionConfiguration.getConnectionSchedule();
+            preparedStatement = connection.prepareStatement("DELETE FROM schedule WHERE id = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
-            System.out.println("DELETE FROM person WHERE id = ?");
+            System.out.println("DELETE FROM schedule WHERE id = ?");
         } catch (Exception e){
             e.printStackTrace();
         } finally {
@@ -225,28 +229,29 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public void update(Person person, int id) {
+    public void update(Schedule schedule, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = ConnectionConfiguration.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE person SET " +
-                    "first_name = ?, last_name = ?, telephony = ?" +
-                    ", medicines = ?, pain = ?, surgery = ?, timeLine = ? WHERE ID = ?");
+            connection = ConnectionConfiguration.getConnectionSchedule();
+            preparedStatement = connection.prepareStatement("UPDATE schedule SET " +
+                    "sunday = ?, monday = ?, tuesday = ?" +
+                    ", wednesday = ?, thursday = ?, friday = ?, saturday = ?, name = ? WHERE ID = ?");
 
-            preparedStatement.setString(1, person.getFirstName());
-            preparedStatement.setString(2, person.getLastName());
-            preparedStatement.setString(3, person.getTelephony());
-            preparedStatement.setString(4, person.getMedicines());
-            preparedStatement.setString(5, person.getPain());
-            preparedStatement.setString(6, person.getSurgery());
-            preparedStatement.setString(7, person.getTimeLine());
+            preparedStatement.setString(1, schedule.getSunday());
+            preparedStatement.setString(2, schedule.getMonday());
+            preparedStatement.setString(3, schedule.getTuesday());
+            preparedStatement.setString(4, schedule.getWednesday());
+            preparedStatement.setString(5, schedule.getThursday());
+            preparedStatement.setString(6, schedule.getFriday());
+            preparedStatement.setString(7, schedule.getSaturday());
             preparedStatement.setInt(8, id);
             preparedStatement.executeUpdate();
 
-            System.out.println("UPDATE person SET first_name = ?, last_name = ?" +
-                    ", medicines = ?, pain = ?, surgery = ?, timeLine = ? WHERE id = ?");
+            System.out.println("UPDATE schedule SET \" +\n" +
+                    "                    \"sunday = ?, monday = ?, tuesday = ?\" +\n" +
+                    "                    \", wednesday = ?, thursday = ?, friday = ?, saturday = ?, name = ? WHERE ID = ?");
         } catch (Exception e){
             e.printStackTrace();
         } finally {

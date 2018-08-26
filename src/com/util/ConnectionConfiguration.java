@@ -24,4 +24,22 @@ public class ConnectionConfiguration {
         }
         return connection;
     }
+
+    public static Connection getConnectionSchedule () {
+        Connection connection = null;
+        WriteXMLFile write = new WriteXMLFile();
+        DatabaseInformation databaseInformation = new DatabaseInformation();
+        write.parseXml(databaseInformation);
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://" + databaseInformation.getUrl() + ":" +
+                            databaseInformation.getPort() + "/" + databaseInformation.getDatabase() + "Schedule",
+                    databaseInformation.getUser(), databaseInformation.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
 }
