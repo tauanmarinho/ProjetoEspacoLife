@@ -58,7 +58,6 @@ public class EspacoLifeFrame implements Initializable {
     public TextField addressNumber;
     public TextField profession;
     public TextField pilatesIndication;
-    public TextField dateOfBirth;
     public CheckBox mondayClickedButton;
     public TextField startMonday;
     public TextField endMonday;
@@ -74,30 +73,31 @@ public class EspacoLifeFrame implements Initializable {
     public TextField startFriday;
     public CheckBox fridayClickedButton;
     public TextField endFriday;
-    public CheckBox activitiesYesButton;
-    public CheckBox activitiesNoButton;
     public TextField frequencyActivities;
     public TextField eachDisease;
-    public CheckBox diseaseYesButton;
-    public CheckBox diseaseNoButton;
-    public CheckBox surgeryNoButton;
+    public RadioButton diseaseYesButton;
+    public RadioButton diseaseNoButton;
+    public RadioButton surgeryNoButton;
     public TextField eachSurgery;
-    public CheckBox surgeryYesButton;
+    public RadioButton surgeryYesButton;
     public TextField eachPain;
-    public CheckBox painNoButton;
-    public CheckBox painYesButton;
+    public RadioButton painNoButton;
+    public RadioButton painYesButton;
     public TextField eachMedicine;
-    public CheckBox medicineNoButton;
-    public CheckBox medicineYesButton;
-    public CheckBox smokeNoButton;
-    public CheckBox smokeYesButton;
+    public RadioButton medicineNoButton;
+    public RadioButton medicineYesButton;
+    public RadioButton smokeNoButton;
+    public RadioButton smokeYesButton;
     public TextField eachSmokeTime;
     public TextField movimentPain;
     public TextField goal;
     public TextField obs;
     public TextField accidentPain;
-    public CheckBox accidentNoButton;
-    public CheckBox accidentYesButton;
+    public RadioButton accidentNoButton;
+    public RadioButton accidentYesButton;
+    public DatePicker dateOfBirth;
+    public RadioButton activitiesYesButton;
+    public RadioButton activitiesNoButton;
     private TitledPane userTitledPane;
     private PersonDaoImpl pdi;
     private int sizeUserNow;
@@ -117,7 +117,7 @@ public class EspacoLifeFrame implements Initializable {
             userTitledPane = new TitledPane();
             userTitledPane.textProperty().set(eachPerson.getFirstName() + " " + eachPerson.getLastName());
             userListReg.getItems().add(userTitledPane);
-            System.out.println(eachPerson.getFirstName() + " " + eachPerson.getLastName());
+            //System.out.println(eachPerson.getFirstName() + " " + eachPerson.getLastName());
         }
         sizeUserNow = pdi.selectAll().size();
     }
@@ -136,7 +136,7 @@ public class EspacoLifeFrame implements Initializable {
                 userTitledPane = new TitledPane();
                 userTitledPane.textProperty().set(persons.get(i).getFirstName()+ " " + persons.get(i).getLastName());
                 userListReg.getItems().add(userTitledPane);
-                System.out.println(persons.get(i).getFirstName()+ " " + persons.get(i).getLastName());
+                //System.out.println(persons.get(i).getFirstName()+ " " + persons.get(i).getLastName());
             }
         }
         sizeUserNow = pdi.selectAll().size();
@@ -195,17 +195,14 @@ public class EspacoLifeFrame implements Initializable {
         updateMain();
         createUserList();
         resetWeekButtons();
-        resetYesAndNoAll();
+        //resetYesAndNoAll();
     }
 
     //Aba Principal
     public void createMainSchedule()
     {
         int indexTimeTotal =  2 * (TIME_FINISH_MORNING - TIME_START_MORNING) + (TIME_FINISH_AFTERNOON - TIME_START_AFTERNOON);
-        SimpleDateFormat ft = new SimpleDateFormat ("E");
-        Date dNow = new Date();
-        System.out.println(ft.format(dNow));
-        System.out.println(ft.format(indexTimeTotal));
+        generateTimeDefault();
         generateTime();
         ScheduleDaoImpl sdi = new ScheduleDaoImpl();
         //List <Schedule> eachSchedule = sdi.selectAll();
@@ -221,27 +218,119 @@ public class EspacoLifeFrame implements Initializable {
 
     }
 
+    public void generateTimeDefault()
+    {
+        String timeString;
+        for (int time = TIME_START_MORNING; time < TIME_FINISH_AFTERNOON; time++) {
+            if (time < 10) {
+                timeString = "0" + time;
+            } else {
+                timeString = "" + time;
+            }
+
+            timeListView.getItems().add(timeString + ":00");
+            timeListView.getItems().add(timeString + ":15");
+            timeListView.getItems().add(timeString + ":30");
+            timeListView.getItems().add(timeString + ":45");
+        }
+    }
     public void generateTime()
     {
-        for (int time = TIME_START_MORNING; time < TIME_FINISH_MORNING; time++)
+        System.out.println("Creating Schedule on main");
+        Date d = new Date();
+        Calendar c = new GregorianCalendar();
+        c.setTime(d);
+        int today = c.get(c.DAY_OF_WEEK);
+        System.out.println("Today: " + today);
+        ScheduleDaoImpl sdi = new ScheduleDaoImpl();
+        List<Schedule> schedules = sdi.selectAll();
+        String timeString;
+
+        for (int time = TIME_START_MORNING; time < TIME_FINISH_AFTERNOON; time++)
         {
-            timeListView.getItems().add("" + time + ":00");
-            timeListView.getItems().add("" + time + ":15");
-            timeListView.getItems().add("" + time + ":30");
-            timeListView.getItems().add("" + time + ":45");
+            if (time < 10)
+            {
+                timeString = "0" + time;
+            } else
+            {
+                timeString = "" + time;
+            }
+
+            for (int index = 0; index < schedules.size(); index++) {
+                switch (today) {
+                    case Calendar.SUNDAY:
+                        setTodaySchedule(time, timeString, schedules.get(index).getSundayStart(), schedules.get(index).getName());
+                        break;
+                    case Calendar.MONDAY:
+                        System.out.println("Monday");
+                        setTodaySchedule(time, timeString, schedules.get(index).getMondayStart(), schedules.get(index).getName());
+                        break;
+                    case Calendar.TUESDAY:
+                        setTodaySchedule(time, timeString, schedules.get(index).getTuesdayStart(), schedules.get(index).getName());
+                        break;
+                    case Calendar.WEDNESDAY:
+                        setTodaySchedule(time, timeString, schedules.get(index).getWednesdayStart(), schedules.get(index).getName());
+                        break;
+                    case Calendar.THURSDAY:
+                        setTodaySchedule(time, timeString, schedules.get(index).getMondayStart(), schedules.get(index).getName());
+                        break;
+                    case Calendar.FRIDAY:
+                        setTodaySchedule(time, timeString, schedules.get(index).getFridayStart(), schedules.get(index).getName());
+                        break;
+                    case Calendar.SATURDAY:
+                        setTodaySchedule(time, timeString, schedules.get(index).getSaturdayStart(), schedules.get(index).getName());
+                        break;
+                }
+            }
         }
+    }
 
-        timeListView.getItems().add("12:00 ----------------------------------------------- Almoço -----------------------------------------------");
-
-        for (int time = TIME_START_AFTERNOON; time < TIME_FINISH_AFTERNOON; time++)
+    public void setTodaySchedule(int index, String time, String timeDay, String name)
+    {
+        if(timeDay.equals(time + ":00"))
         {
-            timeListView.getItems().add("" + time + ":00");
-            timeListView.getItems().add("" + time + ":15");
-            timeListView.getItems().add("" + time + ":30");
-            timeListView.getItems().add("" + time + ":45");
+            index = index - TIME_START_MORNING;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
         }
-
-
+        else if (timeDay.equals(time + ":15"))
+        {
+            index = index - TIME_START_MORNING + 1;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+        }
+        else if (timeDay.equals(time + ":30"))
+        {
+            index = index - TIME_START_MORNING + 2;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+        }
+        else if (timeDay.equals(time + ":45"))
+        {
+            index = index - TIME_START_MORNING + 3;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+            index++;
+            timeListView.getItems().set(index, timeListView.getItems().get(index) + " - " + name);
+        }
     }
 
     //Aba Banco de dados
@@ -291,7 +380,7 @@ public class EspacoLifeFrame implements Initializable {
         person.setAddress(address.getText());
         person.setAddressNumber(addressNumber.getText());
         person.setProfession(profession.getText());
-        person.setDateOfBirth(dateOfBirth.getText());
+        person.setDateOfBirth(dateOfBirth.getEditor().getText());
         person.setPilatesIndication(pilatesIndication.getText());
 
         person.setTimeLine(obs.getText());
@@ -323,7 +412,6 @@ public class EspacoLifeFrame implements Initializable {
             person.setMedicines("Não");
         }
 
-
         if(diseaseYesButton.isSelected())
         {
             person.setDisease("Sim. " + eachDisease.getText());
@@ -351,7 +439,7 @@ public class EspacoLifeFrame implements Initializable {
             person.setSmoke("Não");
         }
 
-        if(accidentNoButton.isSelected())
+        if(accidentYesButton.isSelected())
         {
             person.setAccident("Sim. " + accidentPain.getText());
         }
@@ -364,24 +452,25 @@ public class EspacoLifeFrame implements Initializable {
 
         schedule.setName(name.getText() + " " + lastName.getText());
         if (mondayClickedButton.isSelected()){
-            schedule.setMonday(startMonday.getText() + ":" + endMonday.getText());
+            schedule.setMondayStart(startMonday.getText());
+            schedule.setMondayEnd(endMonday.getText());
         }
         if (tuesdayClickedButton.isSelected()){
-            schedule.setTuesday(startTuesday.getText() + ":" + endTuesday.getText());
+            schedule.setTuesdayStart(startTuesday.getText());
+            schedule.setTuesdayEnd(endTuesday.getText());
         }
         if (wednesdayClickedButton.isSelected()){
-            schedule.setWednesday(startWednesday.getText() + ":" + endWednesday.getText());
+            schedule.setWednesdayStart(startWednesday.getText());
+            schedule.setWednesdayEnd(endWednesday.getText());
         }
         if (thursdayClickedButton.isSelected()){
-            schedule.setThursday(startThursday.getText() + ":" + endThursday.getText());
+            schedule.setThursdayStart(startThursday.getText());
+            schedule.setThursdayEnd(endThursday.getText());
         }
         if (fridayClickedButton.isSelected()){
-            schedule.setFriday(startFriday.getText() + ":" + endFriday.getText());
+            schedule.setFridayStart(startFriday.getText());
+            schedule.setFridayEnd(endFriday.getText());
         }
-
-
-
-
 
 
         schedule.toString();
@@ -471,15 +560,16 @@ public class EspacoLifeFrame implements Initializable {
         }
     }
 
-    public void resetButtonWeek(TextField startDayWeek, TextField endDayWeek){
+    public void resetButtonWeek(TextField startDayWeek, TextField endDayWeek)
+    {
+        resetTextField(startDayWeek);
+        resetTextField(endDayWeek);
+    }
 
-        startDayWeek.setEditable(false);
-        startDayWeek.setOpacity(0.5);
-        startDayWeek.setText("");
-        endDayWeek.setEditable(false);
-        endDayWeek.setOpacity(0.5);
-        endDayWeek.setText("");
-
+    public void resetTextField(TextField textField){
+        textField.setEditable(false);
+        textField.setOpacity(0.5);
+        textField.setText("");
     }
 
     public void resetWeekButtons(){
@@ -499,13 +589,13 @@ public class EspacoLifeFrame implements Initializable {
         fridayClickedButton.setSelected(false);
     }
 
-    public void buttonYes(CheckBox checkBox, TextField textField){
+    public void buttonYes(RadioButton checkBox, TextField textField){
         checkBox.setSelected(false);
         textField.setEditable(true);
         textField.setOpacity(1);
     }
 
-    public void buttonNo(CheckBox checkBox, TextField textField){
+    public void buttonNo(RadioButton checkBox, TextField textField){
         checkBox.setSelected(false);
         textField.setText("");
         textField.setEditable(false);
@@ -515,17 +605,18 @@ public class EspacoLifeFrame implements Initializable {
     public void resetYesAndNoAll(){
         resetYesAndNo(activitiesYesButton, activitiesNoButton, frequencyActivities);
         resetYesAndNo(diseaseYesButton, diseaseNoButton, eachDisease);
-        resetYesAndNo(surgeryYesButton,surgeryNoButton,eachSurgery);
-        resetYesAndNo(painYesButton,painNoButton,eachPain);
+        resetYesAndNo(surgeryYesButton,surgeryNoButton, eachSurgery);
+        resetYesAndNo(painYesButton, painNoButton, eachPain);
         movimentPain.setEditable(false);
         resetYesAndNo(medicineYesButton, medicineNoButton, eachMedicine);
         resetYesAndNo(smokeYesButton, smokeNoButton, eachSmokeTime);
         resetYesAndNo(accidentYesButton, accidentNoButton, accidentPain);
     }
 
-    public void resetYesAndNo(CheckBox yes, CheckBox no, TextField text){
-        buttonNo(yes,text);
-        no.setSelected(false);
+    public void resetYesAndNo(RadioButton yes, RadioButton no, TextField text){
+        buttonNo(yes, text);
+        buttonYes(no, text);
+        //no.setSelected(false);
     }
 
     public void activitiesYes(ActionEvent actionEvent) {
@@ -617,6 +708,7 @@ public class EspacoLifeFrame implements Initializable {
     public void clearAll(ActionEvent actionEvent) {
         resetYesAndNoAll();
         resetWeekButtons();
+        dateOfBirth.getEditor().setText("");
     }
 
     public void validateSchedule(ActionEvent actionEvent) {

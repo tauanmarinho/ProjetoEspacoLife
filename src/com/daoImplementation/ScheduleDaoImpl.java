@@ -19,8 +19,9 @@ public class ScheduleDaoImpl implements ScheduleDao {
             connection = ConnectionConfiguration.getConnectionSchedule();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS schedule (id int primary key unique auto_increment," +
-                    "sunday varchar(110), monday varchar(110), tuesday varchar(110), wednesday varchar(110), thursday varchar(110), " +
-                    "friday varchar(110), saturday varchar(110), name varchar(110))");
+                    "sundayStart varchar(110), sundayEnd varchar(110), mondayStart varchar(110), mondayEnd varchar(110), tuesdayStart varchar(110), tuesdayEnd varchar(110)," +
+                    " wednesdayStart varchar(110), wednesdayEnd varchar(110), thursdayStart varchar(110), thursdayEnd varchar(110), " +
+                    "fridayStart varchar(110), fridayEnd varchar(110), saturdayStart varchar(110), saturdayEnd varchar(110), name varchar(110))");
         } catch (Exception e){
             e.printStackTrace();
         } finally {
@@ -50,21 +51,30 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
         try {
             connection = ConnectionConfiguration.getConnectionSchedule();
-            preparedStatement = connection.prepareStatement("INSERT INTO schedule (sunday, monday, tuesday, wednesday, " +
-                    "thursday, friday, saturday, name )" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setString(1, schedule.getSunday());
-            preparedStatement.setString(2, schedule.getMonday());
-            preparedStatement.setString(3, schedule.getTuesday());
-            preparedStatement.setString(4, schedule.getWednesday());
-            preparedStatement.setString(5, schedule.getThursday());
-            preparedStatement.setString(6, schedule.getFriday());
-            preparedStatement.setString(7, schedule.getSaturday());
-            preparedStatement.setString(8, schedule.getName());
+            preparedStatement = connection.prepareStatement("INSERT INTO schedule (sundayStart, sundayEnd, " +
+                    "mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, " +
+                    "thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, name )" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, schedule.getSundayStart());
+            preparedStatement.setString(2, schedule.getSundayEnd());
+            preparedStatement.setString(3, schedule.getMondayStart());
+            preparedStatement.setString(4, schedule.getMondayEnd());
+            preparedStatement.setString(5, schedule.getTuesdayStart());
+            preparedStatement.setString(6, schedule.getTuesdayEnd());
+            preparedStatement.setString(7, schedule.getWednesdayStart());
+            preparedStatement.setString(8, schedule.getWednesdayEnd());
+            preparedStatement.setString(9, schedule.getThursdayStart());
+            preparedStatement.setString(10, schedule.getThursdayEnd());
+            preparedStatement.setString(11, schedule.getFridayStart());
+            preparedStatement.setString(12, schedule.getFridayEnd());
+            preparedStatement.setString(13, schedule.getSaturdayStart());
+            preparedStatement.setString(14, schedule.getSaturdayEnd());
+            preparedStatement.setString(15, schedule.getName());
             preparedStatement.executeUpdate();
-            System.out.println("INSERT INTO schedule (sunday, monday, tuesday, wednesday, " +
-                    "thursday, friday, saturday, name )" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            System.out.println("INSERT INTO schedule (sundayStart, sundayEnd, " +
+                    "mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, " +
+                    "thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, name )" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -102,14 +112,21 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
             while(resultSet.next()){
                 schedule.setId(resultSet.getInt("id"));
-                schedule.setSunday(resultSet.getString("sunday"));
-                schedule.setMonday(resultSet.getString("monday"));
-                schedule.setTuesday(resultSet.getString("tuesday"));
-                schedule.setWednesday(resultSet.getString("wednesday"));
-                schedule.setThursday(resultSet.getString("thursday"));
-                schedule.setFriday(resultSet.getString("friday"));
-                schedule.setSaturday(resultSet.getString("saturday"));;
-                schedule.setName(resultSet.getString("name"));;
+                schedule.setSundayStart(resultSet.getString("sundayStart"));
+                schedule.setSundayEnd(resultSet.getString("sundayEnd"));
+                schedule.setMondayStart(resultSet.getString("mondayStart"));
+                schedule.setMondayEnd(resultSet.getString("mondayEnd"));
+                schedule.setTuesdayStart(resultSet.getString("tuesdayStart"));
+                schedule.setTuesdayEnd(resultSet.getString("tuesdayEnd"));
+                schedule.setWednesdayStart(resultSet.getString("wednesdayStart"));
+                schedule.setWednesdayEnd(resultSet.getString("wednesdayEnd"));
+                schedule.setThursdayStart(resultSet.getString("thursdayStart"));
+                schedule.setThursdayEnd(resultSet.getString("thursdayEnd"));
+                schedule.setFridayStart(resultSet.getString("fridayStart"));
+                schedule.setFridayEnd(resultSet.getString("fridayENd"));
+                schedule.setSaturdayStart(resultSet.getString("saturdayEnd"));
+                schedule.setSaturdayEnd(resultSet.getString("saturdayEnd"));
+                schedule.setName(resultSet.getString("name"));
             }
             System.out.println("SELECT * FROM schedule WHERE ID = ?");
         } catch (Exception e){
@@ -155,14 +172,21 @@ public class ScheduleDaoImpl implements ScheduleDao {
             while(resultSet.next()) {
                 Schedule schedule = new Schedule();
                 schedule.setId(resultSet.getInt("id"));
-                schedule.setSunday(resultSet.getString("sunday"));
-                schedule.setMonday(resultSet.getString("monday"));
-                schedule.setTuesday(resultSet.getString("tuesday"));
-                schedule.setWednesday(resultSet.getString("wednesday"));
-                schedule.setThursday(resultSet.getString("thursday"));
-                schedule.setFriday(resultSet.getString("friday"));
-                schedule.setSaturday(resultSet.getString("saturday"));
-                schedule.setSaturday(resultSet.getString("name"));
+                schedule.setSundayStart(resultSet.getString("sundayStart"));
+                schedule.setSundayEnd(resultSet.getString("sundayEnd"));
+                schedule.setMondayStart(resultSet.getString("mondayStart"));
+                schedule.setMondayEnd(resultSet.getString("mondayEnd"));
+                schedule.setTuesdayStart(resultSet.getString("tuesdayStart"));
+                schedule.setTuesdayEnd(resultSet.getString("tuesdayEnd"));
+                schedule.setWednesdayStart(resultSet.getString("wednesdayStart"));
+                schedule.setWednesdayEnd(resultSet.getString("wednesdayEnd"));
+                schedule.setThursdayStart(resultSet.getString("thursdayStart"));
+                schedule.setThursdayEnd(resultSet.getString("thursdayEnd"));
+                schedule.setFridayStart(resultSet.getString("fridayStart"));
+                schedule.setFridayEnd(resultSet.getString("fridayENd"));
+                schedule.setSaturdayStart(resultSet.getString("saturdayEnd"));
+                schedule.setSaturdayEnd(resultSet.getString("saturdayEnd"));
+                schedule.setName(resultSet.getString("name"));
 
                 schedules.add(schedule);
             }
@@ -236,23 +260,31 @@ public class ScheduleDaoImpl implements ScheduleDao {
         try {
             connection = ConnectionConfiguration.getConnectionSchedule();
             preparedStatement = connection.prepareStatement("UPDATE schedule SET " +
-                    "sunday = ?, monday = ?, tuesday = ?" +
-                    ", wednesday = ?, thursday = ?, friday = ?, saturday = ?, name = ? WHERE ID = ?");
+                    "sundayStart = ?, sundayEnd = ?, mondayStart = ?, mondayEnd = ?, tuesdayStart = ?, tuesdayEnd = ?" +
+                    ", wednesdayStart = ?, wednesdayEnd = ?, thursdayStart = ?, thursdayEnd = ?, fridayStart = ?, fridayEnd = ?, " +
+                    "saturdayStart = ?, saturdayEnd = ?, name = ? WHERE ID = ?");
 
-            preparedStatement.setString(1, schedule.getSunday());
-            preparedStatement.setString(2, schedule.getMonday());
-            preparedStatement.setString(3, schedule.getTuesday());
-            preparedStatement.setString(4, schedule.getWednesday());
-            preparedStatement.setString(5, schedule.getThursday());
-            preparedStatement.setString(6, schedule.getFriday());
-            preparedStatement.setString(7, schedule.getSaturday());
-            preparedStatement.setString(8, schedule.getName());
-            preparedStatement.setInt(9, id);
+            preparedStatement.setString(1, schedule.getSundayStart());
+            preparedStatement.setString(2, schedule.getSundayEnd());
+            preparedStatement.setString(3, schedule.getMondayStart());
+            preparedStatement.setString(4, schedule.getMondayEnd());
+            preparedStatement.setString(5, schedule.getTuesdayStart());
+            preparedStatement.setString(6, schedule.getTuesdayEnd());
+            preparedStatement.setString(7, schedule.getWednesdayStart());
+            preparedStatement.setString(8, schedule.getWednesdayEnd());
+            preparedStatement.setString(9, schedule.getThursdayStart());
+            preparedStatement.setString(10, schedule.getThursdayEnd());
+            preparedStatement.setString(11, schedule.getFridayStart());
+            preparedStatement.setString(12, schedule.getFridayEnd());
+            preparedStatement.setString(13, schedule.getSaturdayStart());
+            preparedStatement.setString(14, schedule.getSaturdayEnd());
+            preparedStatement.setString(15, schedule.getName());
             preparedStatement.executeUpdate();
 
-            System.out.println("UPDATE schedule SET \" +\n" +
-                    "                    \"sunday = ?, monday = ?, tuesday = ?\" +\n" +
-                    "                    \", wednesday = ?, thursday = ?, friday = ?, saturday = ?, name = ? WHERE ID = ?");
+            System.out.println("UPDATE schedule SET " +
+                    "sundayStart = ?, sundayEnd = ?, mondayStart = ?, mondayEnd = ?, tuesdayStart = ?, tuesdayEnd = ?" +
+                    ", wednesdayStart = ?, wednesdayEnd = ?, thursdayStart = ?, thursdayEnd = ?, fridayStart = ?, fridayEnd = ?, " +
+                    "saturdayStart = ?, saturdayEnd = ?, name = ? WHERE ID = ?");
         } catch (Exception e){
             e.printStackTrace();
         } finally {
