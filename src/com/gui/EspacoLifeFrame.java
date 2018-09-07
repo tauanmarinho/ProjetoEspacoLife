@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javax.xml.crypto.Data;
@@ -98,6 +99,7 @@ public class EspacoLifeFrame implements Initializable {
     public DatePicker dateOfBirth;
     public RadioButton activitiesYesButton;
     public RadioButton activitiesNoButton;
+    public Label validateDateLabel;
     private TitledPane userTitledPane;
     private PersonDaoImpl pdi;
     private int sizeUserNow;
@@ -259,26 +261,39 @@ public class EspacoLifeFrame implements Initializable {
             for (int index = 0; index < schedules.size(); index++) {
                 switch (today) {
                     case Calendar.SUNDAY:
-                        setTodaySchedule(time, timeString, schedules.get(index).getSundayStart(), schedules.get(index).getName());
+                        System.out.println("Sunday");
+                        if (schedules.get(index).getSundayStart() != null)
+                            setTodaySchedule(time, timeString, schedules.get(index).getSundayStart(), schedules.get(index).getName());
                         break;
                     case Calendar.MONDAY:
                         System.out.println("Monday");
-                        setTodaySchedule(time, timeString, schedules.get(index).getMondayStart(), schedules.get(index).getName());
+                        if (schedules.get(index).getMondayStart() != null)
+                            setTodaySchedule(time, timeString, schedules.get(index).getMondayStart(), schedules.get(index).getName());
                         break;
                     case Calendar.TUESDAY:
-                        setTodaySchedule(time, timeString, schedules.get(index).getTuesdayStart(), schedules.get(index).getName());
+                        System.out.println("Tuesday");
+                        if (schedules.get(index).getTuesdayStart() != null)
+                            setTodaySchedule(time, timeString, schedules.get(index).getTuesdayStart(), schedules.get(index).getName());
                         break;
                     case Calendar.WEDNESDAY:
-                        setTodaySchedule(time, timeString, schedules.get(index).getWednesdayStart(), schedules.get(index).getName());
+                        System.out.println("Wednesday");
+                        if (schedules.get(index).getWednesdayStart() != null)
+                            setTodaySchedule(time, timeString, schedules.get(index).getWednesdayStart(), schedules.get(index).getName());
                         break;
                     case Calendar.THURSDAY:
-                        setTodaySchedule(time, timeString, schedules.get(index).getMondayStart(), schedules.get(index).getName());
+                        System.out.println("Thursday");
+                        if (schedules.get(index).getThursdayStart() != null)
+                            setTodaySchedule(time, timeString, schedules.get(index).getThursdayStart(), schedules.get(index).getName());
                         break;
                     case Calendar.FRIDAY:
-                        setTodaySchedule(time, timeString, schedules.get(index).getFridayStart(), schedules.get(index).getName());
+                        System.out.println("Friday");
+                        if (schedules.get(index).getFridayStart() != null)
+                            setTodaySchedule(time, timeString, schedules.get(index).getFridayStart(), schedules.get(index).getName());
                         break;
                     case Calendar.SATURDAY:
-                        setTodaySchedule(time, timeString, schedules.get(index).getSaturdayStart(), schedules.get(index).getName());
+                        System.out.println("Saturday");
+                        if (schedules.get(index).getSaturdayStart() != null)
+                            setTodaySchedule(time, timeString, schedules.get(index).getSaturdayStart(), schedules.get(index).getName());
                         break;
                 }
             }
@@ -713,54 +728,141 @@ public class EspacoLifeFrame implements Initializable {
 
     public void validateSchedule(ActionEvent actionEvent) {
         System.out.println("Validate was pressed");
-
+        boolean validate = true;
 
         InformationTime informationTimeStartMonday = separeteTime(startMonday);
         InformationTime informationTimeEndMonday = separeteTime(endMonday);
 
-        startMonday.setText(informationTimeStartMonday.getHour().get(0) + informationTimeStartMonday.getHour().get(1)
-                + ":" + informationTimeStartMonday.getMin().get(0) + informationTimeStartMonday.getMin().get(1));
+        if (mondayClickedButton.isSelected())
+        {
+            startMonday.setText(informationTimeStartMonday.getHour().get(0) + informationTimeStartMonday.getHour().get(1)
+                    + ":" + informationTimeStartMonday.getMin().get(0) + informationTimeStartMonday.getMin().get(1));
 
-        endMonday.setText(informationTimeEndMonday.getHour().get(0) + informationTimeEndMonday.getHour().get(1)
-                + ":" + informationTimeEndMonday.getMin().get(0) + informationTimeEndMonday.getMin().get(1));
+            endMonday.setText(informationTimeEndMonday.getHour().get(0) + informationTimeEndMonday.getHour().get(1)
+                    + ":" + informationTimeEndMonday.getMin().get(0) + informationTimeEndMonday.getMin().get(1));
+
+            if (!isValidateTime (informationTimeStartMonday, informationTimeEndMonday))
+            {
+                validate = false;
+            }
+        }
 
         InformationTime informationTimeStartTuesday = separeteTime(startTuesday);
         InformationTime informationTimeEndTuesday = separeteTime(endTuesday);
 
-        startTuesday.setText(informationTimeStartTuesday.getHour().get(0) + informationTimeStartTuesday.getHour().get(1)
-                + ":" + informationTimeStartTuesday.getMin().get(0) + informationTimeStartTuesday.getMin().get(1));
+        if (tuesdayClickedButton.isSelected())
+        {
+            startTuesday.setText(informationTimeStartTuesday.getHour().get(0) + informationTimeStartTuesday.getHour().get(1)
+                    + ":" + informationTimeStartTuesday.getMin().get(0) + informationTimeStartTuesday.getMin().get(1));
 
-        endTuesday.setText(informationTimeEndTuesday.getHour().get(0) + informationTimeEndTuesday.getHour().get(1)
-                + ":" + informationTimeEndTuesday.getMin().get(0) + informationTimeEndTuesday.getMin().get(1));
+            endTuesday.setText(informationTimeEndTuesday.getHour().get(0) + informationTimeEndTuesday.getHour().get(1)
+                    + ":" + informationTimeEndTuesday.getMin().get(0) + informationTimeEndTuesday.getMin().get(1));
+
+            if (!isValidateTime (informationTimeStartTuesday, informationTimeEndTuesday))
+            {
+                validate = false;
+            }
+        }
 
         InformationTime informationTimeStartWednesday = separeteTime(startWednesday);
         InformationTime informationTimeEndWednesday = separeteTime(endWednesday);
 
-        startWednesday.setText(informationTimeStartWednesday.getHour().get(0) + informationTimeStartWednesday.getHour().get(1)
-                + ":" + informationTimeStartWednesday.getMin().get(0) + informationTimeStartWednesday.getMin().get(1));
+        if (wednesdayClickedButton.isSelected())
+        {
+            startWednesday.setText(informationTimeStartWednesday.getHour().get(0) + informationTimeStartWednesday.getHour().get(1)
+                    + ":" + informationTimeStartWednesday.getMin().get(0) + informationTimeStartWednesday.getMin().get(1));
 
-        endWednesday.setText(informationTimeEndWednesday.getHour().get(0) + informationTimeEndWednesday.getHour().get(1)
-                + ":" + informationTimeEndWednesday.getMin().get(0) + informationTimeEndWednesday.getMin().get(1));
+            endWednesday.setText(informationTimeEndWednesday.getHour().get(0) + informationTimeEndWednesday.getHour().get(1)
+                    + ":" + informationTimeEndWednesday.getMin().get(0) + informationTimeEndWednesday.getMin().get(1));
+
+            if (!isValidateTime (informationTimeStartWednesday, informationTimeEndWednesday))
+            {
+                validate = false;
+            }
+        }
 
         InformationTime informationTimeStartThursday = separeteTime(startThursday);
         InformationTime informationTimeEndThursday = separeteTime(endThursday);
 
-        startThursday.setText(informationTimeStartThursday.getHour().get(0) + informationTimeStartThursday.getHour().get(1)
-                + ":" + informationTimeStartThursday.getMin().get(0) + informationTimeStartThursday.getMin().get(1));
+        if (thursdayClickedButton.isSelected())
+        {
+            startThursday.setText(informationTimeStartThursday.getHour().get(0) + informationTimeStartThursday.getHour().get(1)
+                    + ":" + informationTimeStartThursday.getMin().get(0) + informationTimeStartThursday.getMin().get(1));
 
-        endThursday.setText(informationTimeEndThursday.getHour().get(0) + informationTimeEndThursday.getHour().get(1)
-                + ":" + informationTimeEndThursday.getMin().get(0) + informationTimeEndThursday.getMin().get(1));
+            endThursday.setText(informationTimeEndThursday.getHour().get(0) + informationTimeEndThursday.getHour().get(1)
+                    + ":" + informationTimeEndThursday.getMin().get(0) + informationTimeEndThursday.getMin().get(1));
+
+            if (!isValidateTime (informationTimeStartThursday, informationTimeEndThursday))
+            {
+                validate = false;
+            }
+        }
 
         InformationTime informationTimeStartFriday = separeteTime(startFriday);
         InformationTime informationTimeEndFriday = separeteTime(endFriday);
 
-        startFriday.setText(informationTimeStartFriday.getHour().get(0) + informationTimeStartFriday.getHour().get(1)
-                + ":" + informationTimeStartFriday.getMin().get(0) + informationTimeStartFriday.getMin().get(1));
+        if (fridayClickedButton.isSelected()) {
+            startFriday.setText(informationTimeStartFriday.getHour().get(0) + informationTimeStartFriday.getHour().get(1)
+                    + ":" + informationTimeStartFriday.getMin().get(0) + informationTimeStartFriday.getMin().get(1));
 
-        endFriday.setText(informationTimeEndFriday.getHour().get(0) + informationTimeEndFriday.getHour().get(1)
-                + ":" + informationTimeEndFriday.getMin().get(0) + informationTimeEndFriday.getMin().get(1));
+            endFriday.setText(informationTimeEndFriday.getHour().get(0) + informationTimeEndFriday.getHour().get(1)
+                    + ":" + informationTimeEndFriday.getMin().get(0) + informationTimeEndFriday.getMin().get(1));
+
+            if (!isValidateTime (informationTimeStartFriday, informationTimeEndFriday))
+            {
+                validate = false;
+            }
+        }
 
 
+        if (!validate)
+        {
+            validateDateLabel.setText("Horários não válidos");
+            validateDateLabel.setTextFill(Color.web("#ea0606"));
+        } else
+        {
+            validateDateLabel.setText("Horários válidos");
+            validateDateLabel.setTextFill(Color.web("#000000"));
+        }
+
+        if (!mondayClickedButton.isSelected() && !tuesdayClickedButton.isSelected() && !wednesdayClickedButton.isSelected()
+                && !thursdayClickedButton.isSelected() && !fridayClickedButton.isSelected())
+        {
+            validateDateLabel.setText("Selecione os dias da semana");
+            validateDateLabel.setTextFill(Color.web("#ea0606"));
+            validate = false;
+        }
+    }
+
+    public boolean isValidateTime (InformationTime timeStart, InformationTime timeEnd)
+    {
+
+        if (Integer.parseInt(timeStart.getHour().get(0)) > Integer.parseInt(timeEnd.getHour().get(0)))
+        {
+            System.out.println("Not validated - Started hour is low then ended hour");
+            return false;
+        }
+        else if ((Integer.parseInt(timeStart.getHour().get(0)) < Integer.parseInt(timeEnd.getHour().get(0)))
+                && (Integer.parseInt(timeStart.getHour().get(1)) > Integer.parseInt(timeEnd.getHour().get(1))))
+        {
+            System.out.println("Not validated - Started hour is the same of ended hour");
+            return false;
+        }
+        else if (timeStart.getHour().equals(timeEnd.getHour()))
+        {
+            System.out.println("Not validated - Started hour is the same of ended hour");
+            return false;
+        }
+        else if (timeStart.getHour().get(0).equals(timeEnd.getHour().get(0))
+                && (Integer.parseInt(timeStart.getHour().get(1)) > Integer.parseInt(timeEnd.getHour().get(1))))
+        {
+            System.out.println("Not validated - Started hour is the same of ended hour");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     public InformationTime separeteTime(TextField time){
@@ -792,6 +894,7 @@ public class EspacoLifeFrame implements Initializable {
         timeInfo.setHour(validateTimeHour(sizeTimeDetection(timeInfo.getHour(), true)));
 
         timeInfo.setMin(validateTimeMin(sizeTimeDetection(timeInfo.getMin(), false)));
+
 
         System.out.println(timeInfo.getHour() + ":" + timeInfo.getMin());
 
@@ -899,7 +1002,7 @@ public class EspacoLifeFrame implements Initializable {
                 min.add("5");
                 min.add("9");
             }
-            else
+            else if (min.get(0) != null ||  min.get(1) != null)
             {
                 min.remove(1);
                 min.remove(0);

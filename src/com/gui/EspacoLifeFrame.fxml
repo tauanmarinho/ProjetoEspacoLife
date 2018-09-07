@@ -249,6 +249,7 @@
                         <RadioButton fx:id="medicineNoButton" layoutX="517.0" layoutY="197.0" mnemonicParsing="false" onAction="#medicineNo" text="Não" />
                         <RadioButton fx:id="smokeYesButton" layoutX="455.0" layoutY="250.0" mnemonicParsing="false" onAction="#smokeYes" text="Sim" />
                         <RadioButton fx:id="smokeNoButton" layoutX="518.0" layoutY="250.0" mnemonicParsing="false" onAction="#smokeNo" text="Não" />
+                        <Label fx:id="validateDateLabel" layoutX="889.0" layoutY="260.0" prefHeight="17.0" prefWidth="236.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
